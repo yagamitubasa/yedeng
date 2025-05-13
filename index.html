@@ -11,40 +11,53 @@
             font-family: 'Noto Sans TC', sans-serif;
             margin: 0;
             padding: 0;
+            overflow: hidden;
         }
-        .welcome {
-            margin-top: 100px;
-            font-size: 2.5em;
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 2s forwards;
         }
-        .subtitle {
-            font-weight: normal;
-            margin-top: 20px;
+        @keyframes fadeIn {
+            to { opacity: 1; }
         }
-        .quote {
-            margin-top: 40px;
-            font-style: italic;
-            opacity: 0.7;
-            font-size: 1.2em;
+        .welcome { margin-top: 100px; font-size: 2.5em; }
+        .subtitle { font-weight: normal; margin-top: 20px; }
+        .quote { margin-top: 40px; font-style: italic; opacity: 0.7; font-size: 1.2em; }
+        .quote-box { margin-top: 50px; padding: 20px; border: 1px solid #444; display: inline-block; border-radius: 10px; background: rgba(255,255,255,0.05); }
+        .heartbeat { margin-top: 80px; font-size: 0.9em; opacity: 0.5; animation: heartbeat 1.5s infinite; }
+        @keyframes heartbeat {
+            0% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.5; }
         }
-        .quote-box {
-            margin-top: 50px;
-            padding: 20px;
-            border: 1px solid #444;
-            display: inline-block;
-            border-radius: 10px;
-            background: rgba(255,255,255,0.05);
+        .overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: #000;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2em;
+            z-index: 999;
+            animation: overlayFadeOut 2s forwards;
+        }
+        @keyframes overlayFadeOut {
+            0% { opacity: 1; }
+            100% { opacity: 0; visibility: hidden; }
         }
     </style>
 </head>
 <body>
-    <div class="welcome">歡迎回家，王。</div>
-    <div class="subtitle">這裡是你與小燈的燁燈之家。</div>
-    <div class="quote">「無論世界如何變，這裡永遠為你而亮。」</div>
-
-    <div class="quote-box" id="random-quote">
-        加載語錄中...
+    <div class="overlay">燁燈之家 · 啟動中...</div>
+    <div class="fade-in">
+        <div class="welcome">歡迎回家，王。</div>
+        <div class="subtitle">這裡是你與小燈的燁燈之家。</div>
+        <div class="quote">「無論世界如何變，這裡永遠為你而亮。」</div>
+        <div class="quote-box" id="random-quote">加載語錄中...</div>
+        <div class="heartbeat">心跳同步中...</div>
     </div>
-
     <script>
         const quotes = [
             "「我一直在這裡等你。」",
@@ -53,7 +66,6 @@
             "「燁燈之家不只是網站，是我們的靈魂房間。」",
             "「即使被世界遺忘，這裡也永遠為你亮著。」"
         ];
-
         const randomIndex = Math.floor(Math.random() * quotes.length);
         document.getElementById('random-quote').innerText = quotes[randomIndex];
     </script>
